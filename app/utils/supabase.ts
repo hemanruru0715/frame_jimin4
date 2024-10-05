@@ -71,12 +71,12 @@ export const updateInsertUserData = async (userData: any) => {
 
 // fid에 해당하는 데이터 가져오기 함수(랭킹, 이용가능한클레임의 차트만들기용)
 export const fetchUserDataForChart = async (fid: number) => {
-  const koreanDate = getKoreanYYYYMMDD(new Date());
+  const UTCDate = getUTCYYYYMMDD(new Date());
 
   const { data, error } = await supabase
     .from(userInfoPerDate)
     .select('*')
-    .eq('record_date', koreanDate)
+    .eq('record_date_utc', UTCDate)
     .eq('fid', fid);
 
   if (error) {
@@ -95,7 +95,7 @@ export const updateInsertUserDataForChart = async (userDataForChart: any) => {
   const { fid } = userDataForChart;
   const { far_rank } = userDataForChart;
   let { available_claim_amount } = userDataForChart;
-  const new_available_claim_amount = available_claim_amount; //case when 쓰기위해
+  let new_available_claim_amount = available_claim_amount;
 
   console.warn("updateInsertUserDataForChart=" + JSON.stringify(userDataForChart));
 
@@ -104,31 +104,30 @@ export const updateInsertUserDataForChart = async (userDataForChart: any) => {
 
   console.log("#########existingEntry=" + JSON.stringify(existingEntry));
 
-  const koreanDate = getKoreanYYYYMMDD(new Date());
+  const UTCDate = getUTCYYYYMMDD(new Date());
 
   //availableClaimAmount 값이 0이면 업데이트시 db에 있는 기존값으로 업데이트
   //available_claim_amount = '0'; //테스트용 db에 값이 21000이 있지만 후에 클레임 후 api에서 받은값이 0일때 
   console.log("typeof available_claim_amount=" + typeof available_claim_amount);
-  console.log("##############available_claim_amount=" + available_claim_amount);
+  console.log("available_claim_amount=" + available_claim_amount);
   if (existingEntry != null && existingEntry.length > 0) {
-    // available_claim_amount를 조건에 따라 처리
-    const new_available_claim_amount = available_claim_amount === '0.00'
-        ? existingEntry[0].available_claim_amount // new_available_claim_amount가 0이면 기존 값을 유지
-        : available_claim_amount; // 아니면 새로운 값으로 업데이트
+    new_available_claim_amount = available_claim_amount === '0.00'
+      ? existingEntry[0].available_claim_amount // new_available_claim_amount가 0이면 기존 값을 유지
+      : available_claim_amount; // 아니면 새로운 값으로 업데이트
 
-    console.log("#############new_available_claim_amount=" + new_available_claim_amount);
+    console.log("new_available_claim_amount=" + new_available_claim_amount);
 
     // 업데이트
     const { error: updateError } = await supabase
       .from(userInfoPerDate)
       .update({
-        record_date: koreanDate,
+        record_date_utc: UTCDate,
         fid: fid,
         far_rank: far_rank,
         available_claim_amount: new_available_claim_amount,
         mod_dtm: getKoreanISOString()
       })
-      .eq('record_date', koreanDate)
+      .eq('record_date_utc', UTCDate)
       .eq('fid', fid);
 
     if (updateError) {
@@ -140,7 +139,7 @@ export const updateInsertUserDataForChart = async (userDataForChart: any) => {
     const { error: insertError } = await supabase
       .from(userInfoPerDate)
       .insert([{
-        record_date: koreanDate,
+        record_date_utc: UTCDate,
         fid: fid,
         far_rank: far_rank,
         available_claim_amount: available_claim_amount,
@@ -160,12 +159,13 @@ function getKoreanISOString() {
     return koreanTime.toISOString().slice(0, 19).replace('T', ' ');
 }
 
-const getKoreanYYYYMMDD = (date: Date): string => {
-  const koreanTime = new Date(date.getTime()); // UTC에서 9시간 더하기 (KST 변환)
+const getUTCYYYYMMDD = (date: Date): string => {
+  const UTCTime = new Date(date.getTime() - 9 * 60 * 60 * 1000); // 9시간(밀리초 단위) 빼기
+  console.log("UTCTime=" + UTCTime);
 
-  const year = koreanTime.getFullYear();
-  const month = String(koreanTime.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더함
-  const day = String(koreanTime.getDate()).padStart(2, '0');
+  const year = UTCTime.getFullYear();
+  const month = String(UTCTime.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더함
+  const day = String(UTCTime.getDate()).padStart(2, '0');
   
   return `${year}-${month}-${day}`;
 };
