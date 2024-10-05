@@ -15,7 +15,7 @@ export const generateChart = () => {
             labels: ['21-Aug', '28-Aug', '4-Sep', '11-Sep', '18-Sep', '25-Sep', '26-Sep'],
             datasets: [
                 {
-                    label: 'claim',
+                    //label: 'claim',
                     data: [25000, 27000, 35000, 29000, 45000, 46000, 40000],
                     //data: [5000, 7000, 5000, 9000, 5000, 6000, 4000],
                     //data: [125000, 127000, 35000, 229000, 115000, 106000, 4000],
@@ -24,7 +24,7 @@ export const generateChart = () => {
                     fill: true, // 영역 차트로 만듬
                     pointBackgroundColor: 'red', // 데이터 포인트 색상
                     pointRadius: 2, // 데이터 포인트 크기
-                    tension: 0.3, // 선의 부드러움 조정
+                    tension: 0.0, // 선의 부드러움 조정
                 }
             ]
         },
@@ -39,7 +39,7 @@ export const generateChart = () => {
             },
             plugins: {
                 legend: {
-                    display: true,
+                    display: false, // 범례 표시를 비활성화
                     position: 'top',
                     labels: {
                         color: 'white', // 레전드 텍스트 색상
