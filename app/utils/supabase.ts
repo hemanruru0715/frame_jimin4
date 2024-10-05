@@ -94,7 +94,8 @@ export const fetchUserDataForChart = async (fid: number) => {
 export const updateInsertUserDataForChart = async (userDataForChart: any) => {
   const { fid } = userDataForChart;
   const { far_rank } = userDataForChart;
-  const { available_claim_amount } = userDataForChart;
+  let { available_claim_amount } = userDataForChart;
+  const new_available_claim_amount = available_claim_amount; //case when 쓰기위해
 
   console.warn("updateInsertUserDataForChart=" + JSON.stringify(userDataForChart));
 
@@ -105,7 +106,18 @@ export const updateInsertUserDataForChart = async (userDataForChart: any) => {
 
   const koreanDate = getKoreanYYYYMMDD(new Date());
 
+  //availableClaimAmount 값이 0이면 업데이트시 db에 있는 기존값으로 업데이트
+  //available_claim_amount = '0'; //테스트용 db에 값이 21000이 있지만 후에 클레임 후 api에서 받은값이 0일때 
+  console.log("typeof available_claim_amount=" + typeof available_claim_amount);
+  console.log("##############available_claim_amount=" + available_claim_amount);
   if (existingEntry != null && existingEntry.length > 0) {
+    // available_claim_amount를 조건에 따라 처리
+    const new_available_claim_amount = available_claim_amount === '0.00'
+        ? existingEntry[0].available_claim_amount // new_available_claim_amount가 0이면 기존 값을 유지
+        : available_claim_amount; // 아니면 새로운 값으로 업데이트
+
+    console.log("#############new_available_claim_amount=" + new_available_claim_amount);
+
     // 업데이트
     const { error: updateError } = await supabase
       .from(userInfoPerDate)
@@ -113,7 +125,7 @@ export const updateInsertUserDataForChart = async (userDataForChart: any) => {
         record_date: koreanDate,
         fid: fid,
         far_rank: far_rank,
-        available_claim_amount: available_claim_amount,
+        available_claim_amount: new_available_claim_amount,
         mod_dtm: getKoreanISOString()
       })
       .eq('record_date', koreanDate)
