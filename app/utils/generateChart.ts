@@ -1,5 +1,8 @@
-import { createCanvas } from 'canvas';
+import { createCanvas, registerFont  } from 'canvas';
 import Chart from 'chart.js/auto';
+
+// 커스텀 폰트 등록 (TrueType Font 파일 경로)
+registerFont('./public/fonts/Recipekorea.ttf', { family: 'CustomFont' });
 
 // 차트 생성 함수
 export const generateChart = () => {
@@ -55,6 +58,7 @@ export const generateChart = () => {
                         font: {
                             size: 14,
                             weight: 'bold',
+                            family: 'CustomFont', // Y축에 폰트 적용
                         }
                     },
                     grid: {
@@ -82,6 +86,7 @@ export const generateChart = () => {
                         font: {
                             size: 14,
                             weight: 'bold',
+                            family: 'CustomFont', // Y축에 폰트 적용
                         }
                     },
                     grid: {

@@ -202,7 +202,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         //socialCapitalQueryData
         const data = socialCapitalQueryData.data;
         
-        console.warn("data=" + JSON.stringify(data));
+        //console.warn("data=" + JSON.stringify(data));
         profileName = data.Socials.Social[0].profileName;
         profileImage = data.Socials.Social[0].profileImage;
         farScore = data.Socials.Social[0].farcasterScore.farScore.toFixed(3);
