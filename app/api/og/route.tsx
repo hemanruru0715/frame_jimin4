@@ -202,7 +202,7 @@ export async function GET(req: Request) {
 
 
    // 차트 이미지 생성
-   const chartImageBuffer = generateChart();
+   const chartImageBuffer = await generateChart(fid);
 
    // Buffer를 Base64 문자열로 변환
    const base64Image = chartImageBuffer.toString('base64');

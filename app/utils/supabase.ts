@@ -69,6 +69,32 @@ export const updateInsertUserData = async (userData: any) => {
 };
 
 
+// fid에 해당하는 최근 7일 데이터 가져오기 함수(랭킹, 이용가능한클레임의 차트만들기용)
+export const fetchUserDataRecentSevenDaysForChart = async (fid: number) => {
+  const UTCDate = getUTCYYYYMMDD(new Date());
+
+  // 7일 전 날짜 (UTC)
+  const sevenDaysAgoUTCDate = getUTCYYYYMMDD(new Date(new Date().getTime() - 6 * 24 * 60 * 60 * 1000)); // 6일을 빼서 7일 전 날짜로 만듦
+  
+  const { data, error } = await supabase
+    .from(userInfoPerDate)
+    .select('*')
+    .gte('record_date_utc', sevenDaysAgoUTCDate) // 7일 전 날짜부터
+    .lte('record_date_utc', UTCDate) // 오늘 날짜까지
+    .eq('fid', fid);
+
+
+  if (error) {
+    if (error.code !== 'PGRST116') { // row가 없는 경우 에러를 제외
+      console.error("Supabase 데이터 검색 오류:", error);
+      throw new Error('Error fetching data from Supabase');
+    }
+    return null;
+  }
+
+  return data;
+};
+
 // fid에 해당하는 데이터 가져오기 함수(랭킹, 이용가능한클레임의 차트만들기용)
 export const fetchUserDataForChart = async (fid: number) => {
   const UTCDate = getUTCYYYYMMDD(new Date());
@@ -160,8 +186,17 @@ function getKoreanISOString() {
 }
 
 const getUTCYYYYMMDD = (date: Date): string => {
-  const UTCTime = new Date(date.getTime() - 9 * 60 * 60 * 1000); // 9시간(밀리초 단위) 빼기
+
+  // 현재 환경이 Vercel 서버(UTC)인지 로컬(KST)인지 확인
+  const isServerUTC = date.getTimezoneOffset() === 0;
+  console.log("isServerUTC=" + isServerUTC);
+
+  // 로컬(KST) 환경에서는 9시간을 빼고, 서버(UTC) 환경에서는 그대로 둠
+  const UTCTime = isServerUTC ? date : new Date(date.getTime() - 9 * 60 * 60 * 1000);
   console.log("UTCTime=" + UTCTime);
+
+  // const UTCTime = new Date(date.getTime() - 9 * 60 * 60 * 1000); // 9시간(밀리초 단위) 빼기
+  // console.log("UTCTime=" + UTCTime);
 
   const year = UTCTime.getFullYear();
   const month = String(UTCTime.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더함

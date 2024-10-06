@@ -1,24 +1,63 @@
 import { createCanvas, registerFont  } from 'canvas';
 import Chart from 'chart.js/auto';
+import { fetchUserDataRecentSevenDaysForChart } from '@/app/utils/supabase';
 
 // 커스텀 폰트 등록 (TrueType Font 파일 경로)
 registerFont('./public/fonts/Recipekorea.ttf', { family: 'CustomFont' });
 
+// 최근 7일의 날짜 생성 함수
+const getLast7DaysLabels = (): string[] => {
+    const today = new Date();
+    const last7DaysLabels = [];
+    for (let i = 0; i < 7; i++) {
+        const pastDate = new Date(today);
+        pastDate.setDate(today.getDate() - i);
+        const year = pastDate.getFullYear();
+        const month = String(pastDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+        const day = String(pastDate.getDate()).padStart(2, '0');
+        last7DaysLabels.unshift(`${year}-${month}-${day}`);
+    }
+    return last7DaysLabels;
+};
+
 // 차트 생성 함수
-export const generateChart = () => {
+export const generateChart = async (fid: any) => { // async 추가
+    // 데이터 가져오기 (비동기 처리)
+    const userChartData = await fetchUserDataRecentSevenDaysForChart(fid);
+
+    // record_date_utc 기준으로 오름차순(과거 → 최신) 정렬
+    let sortedUserChartData = [];
+    if(userChartData != null){
+            sortedUserChartData = userChartData.sort((a, b) => {
+            return new Date(a.record_date_utc).getTime() - new Date(b.record_date_utc).getTime();
+        });
+        console.log("sortedUserChartData=" + JSON.stringify(sortedUserChartData));
+    }
+
+    // 최근 7일의 날짜 레이블 생성
+    const labels = getLast7DaysLabels();
+
+    // sortedUserChartData와 labels를 매칭하여 available_claim_amount 값을 채움
+    const availableClaimAmounts = labels.map(label => {
+        const entry = sortedUserChartData.find(data => data.record_date_utc.startsWith(label));
+        return entry ? entry.available_claim_amount : 0; // 데이터가 없으면 0 반환
+    });
+
+    console.log("availableClaimAmounts=" + JSON.stringify(availableClaimAmounts));
+    const minClaimAmount = Math.min(...availableClaimAmounts); // 최소값
+    const maxClaimAmount = Math.max(...availableClaimAmounts); // 최대값
+
     const canvas = createCanvas(600, 600); // 크기를 더 크게 설정
     const ctx: any = canvas.getContext('2d');
 
     const chartConfig: any = {
         type: 'line',
         data: {
-            labels: ['21-Aug', '28-Aug', '4-Sep', '11-Sep', '18-Sep', '25-Sep', '26-Sep'],
+            labels: labels,
             datasets: [
                 {
                     //label: 'claim',
-                    data: [25000, 27000, 35000, 29000, 45000, 46000, 40000],
-                    //data: [5000, 7000, 5000, 9000, 5000, 6000, 4000],
-                    //data: [125000, 127000, 35000, 229000, 115000, 106000, 4000],
+                    data: availableClaimAmounts,
                     borderColor: 'white', // 선 색상
                     backgroundColor: 'rgba(0, 0, 0, 0.1)', // 채워지는 영역 투명도
                     fill: true, // 영역 차트로 만듬
@@ -102,12 +141,8 @@ export const generateChart = () => {
                         },
                         //stepSize: 7000, // Y축 간격을 100으로 설정
                     },
-                    min: 25000, // Y축 최소값
-                    max: 46000, // Y축 최대값을 45000으로 설정하여 간격 조정
-                    // min: 4000, // Y축 최소값
-                    // max: 9000, // Y축 최대값을 45000으로 설정하여 간격 조정
-                    // min: 4000, // Y축 최소값
-                    // max: 229000, // Y축 최대값을 45000으로 설정하여 간격 조정
+                    min: minClaimAmount, // Y축 최소값
+                    max: maxClaimAmount, // Y축 최대값을 45000으로 설정하여 간격 조정
                     border: {
                         color: 'white', // Y축 검은색 선
                         width: 2, // Y축 선 두께
