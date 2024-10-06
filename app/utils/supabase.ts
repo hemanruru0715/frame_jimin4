@@ -119,6 +119,7 @@ export const fetchUserDataForChart = async (fid: number) => {
 // 데이터를 업데이트 또는 삽입하는 함수(랭킹, 이용가능한클레임의 차트만들기용)
 export const updateInsertUserDataForChart = async (userDataForChart: any) => {
   const { fid } = userDataForChart;
+  const { profile_name } = userDataForChart;
   const { far_rank } = userDataForChart;
   let { available_claim_amount } = userDataForChart;
   let new_available_claim_amount = available_claim_amount;
@@ -149,6 +150,7 @@ export const updateInsertUserDataForChart = async (userDataForChart: any) => {
       .update({
         record_date_utc: UTCDate,
         fid: fid,
+        profile_name: profile_name,
         far_rank: far_rank,
         available_claim_amount: new_available_claim_amount,
         mod_dtm: getKoreanISOString()
@@ -167,6 +169,7 @@ export const updateInsertUserDataForChart = async (userDataForChart: any) => {
       .insert([{
         record_date_utc: UTCDate,
         fid: fid,
+        profile_name: profile_name,
         far_rank: far_rank,
         available_claim_amount: available_claim_amount,
         reg_dtm: getKoreanISOString()

@@ -368,6 +368,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
     await updateInsertUserDataForChart({
       fid: myFid,
+      profile_name: profileName,
       far_rank: farRank,
       available_claim_amount: availableClaimAmount,
     });
