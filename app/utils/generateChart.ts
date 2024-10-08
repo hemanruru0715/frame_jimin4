@@ -6,7 +6,6 @@ import { fetchUserDataRecentSevenDaysForChart } from '@/app/utils/supabase';
 registerFont('./public/fonts/Recipekorea.ttf', { family: 'CustomFont' });
 
 // 최근 14일의 날짜 생성 함수
-let last14DaysLabels_MMDD: string[] = [];
 const getLast14DaysLabels = (): string[] => {
     const today = new Date();
     const last14DaysLabels = [];
@@ -17,9 +16,22 @@ const getLast14DaysLabels = (): string[] => {
         const month = String(pastDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
         const day = String(pastDate.getDate()).padStart(2, '0');
         last14DaysLabels.unshift(`${year}-${month}-${day}`);
-        last14DaysLabels_MMDD.unshift(`${month}-${day}`);
     }
     return last14DaysLabels;
+};
+
+const getLast14DaysLabels_MMDD = (): string[] => {
+    const today = new Date();
+    const last14DaysLabels_MMDD = [];
+    for (let i = 0; i < 14; i++) {
+        const pastDate = new Date(today);
+        pastDate.setDate(today.getDate() - i);
+        const year = pastDate.getFullYear();
+        const month = String(pastDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+        const day = String(pastDate.getDate()).padStart(2, '0');
+        last14DaysLabels_MMDD.unshift(`${month}-${day}`);
+    }
+    return last14DaysLabels_MMDD;
 };
 
 // 차트 생성 함수
@@ -50,7 +62,7 @@ export const generateChart = async (fid: any) => { // async 추가
     const minClaimAmount = Math.min(...availableClaimAmounts); // 최소값
     const maxClaimAmount = Math.max(...availableClaimAmounts); // 최대값
 
-    let labels14 = last14DaysLabels_MMDD; //실제로 x축은 월일만 보여줌
+    let labels14 = getLast14DaysLabels_MMDD(); //실제로 x축은 월일만 보여줌
 
     console.log("labels14=" + JSON.stringify(labels14));
 
