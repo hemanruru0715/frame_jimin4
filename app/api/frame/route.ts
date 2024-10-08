@@ -290,7 +290,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         console.log("differenceInMillis=" + differenceInMillis);
         console.log("differenceInSeconds=" + differenceInSeconds);
 
-        console.warn("castsResponse=" + JSON.stringify(castsResponse.data));
+        //console.warn("castsResponse=" + JSON.stringify(castsResponse.data));
 
         // castsResponse에서 reply 메시지 필터링
         const filteredReplyMessages = castsResponse.data.messages.filter(
@@ -394,6 +394,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             action: 'link', 
             label: '🔄Share', 
             target: `https://warpcast.com/~/compose?text=Check your Moxie Stats. Frame created by @hemanruru&embeds%5B%5D=${encodeURIComponent(frameUrl)}`
+          },
+          {
+            action: 'link', 
+            label: '@sinbiro', 
+            target: 'https://warpcast.com/hemanruru' 
           },
         ],
         image: { 
@@ -500,6 +505,11 @@ export async function GET(req: NextRequest) {
           action: 'link', 
           label: '🔄Share', 
           target: `https://warpcast.com/~/compose?text=Check your Moxie Stats. Frame created by @hemanruru&embeds%5B%5D=${encodeURIComponent(frameUrl)}`
+        },
+        {
+          action: 'link', 
+          label: '@sinbiro', 
+          target: 'https://warpcast.com/hemanruru' 
         },
       ],
       image: { 

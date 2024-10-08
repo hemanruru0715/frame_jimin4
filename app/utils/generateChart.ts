@@ -51,7 +51,7 @@ export const generateChart = async (fid: any) => { // async 추가
     // 최근 7일의 날짜 레이블 생성
     let labels = getLast14DaysLabels();
 
-    console.log("labels=" + JSON.stringify(labels));
+    //console.log("labels=" + JSON.stringify(labels));
     // sortedUserChartData와 labels를 매칭하여 available_claim_amount 값을 채움
     const availableClaimAmounts = labels.map(label => {
         const entry = sortedUserChartData.find(data => data.record_date_utc.startsWith(label));
@@ -77,7 +77,7 @@ export const generateChart = async (fid: any) => { // async 추가
                 {
                     //label: 'claim',
                     data: availableClaimAmounts,
-                    borderColor: 'white', // 선 색상
+                    borderColor: '#006400', // 선 색상
                     backgroundColor: 'rgba(0, 0, 0, 0.1)', // 채워지는 영역 투명도
                     fill: true, // 영역 차트로 만듬
                     pointBackgroundColor: 'red', // 데이터 포인트 색상
@@ -100,7 +100,7 @@ export const generateChart = async (fid: any) => { // async 추가
                     display: false, // 범례 표시를 비활성화
                     position: 'top',
                     labels: {
-                        color: 'white', // 레전드 텍스트 색상
+                        color: '#006400', // 레전드 텍스트 색상
                         font: {
                             size: 12, // 레전드 텍스트 크기
                         }
@@ -111,8 +111,8 @@ export const generateChart = async (fid: any) => { // async 추가
                 x: {
                     title: {
                         display: true,
-                        text: 'recent 7 days',
-                        color: 'white',
+                        text: 'recent 14 days',
+                        color: '#006400',
                         font: {
                             size: 14,
                             weight: 'bold',
@@ -120,19 +120,19 @@ export const generateChart = async (fid: any) => { // async 추가
                         }
                     },
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)', // 그리드 선을 흐리게
+                        color: 'rgba(0, 100, 0, 0.3)', // 그리드 선을 흐리게
                         lineWidth: 1, // 그리드 선 두께
                         borderDash: [5, 5], // 점선 스타일
                     },
                     ticks: {
-                        color: 'white',
+                        color: '#006400',
                         font: {
                             size: 14,
                             weight: 'bold', // Y축 값들을 bold로 설정
                         }
                     },
                     border: {
-                        color: 'white', // X축 검은색 선
+                        color: '#006400', // X축 검은색 선
                         width: 2, // X축 선 두께
                     }
                 },
@@ -140,7 +140,7 @@ export const generateChart = async (fid: any) => { // async 추가
                     title: {
                         display: true,
                         text: 'Available Claim',
-                        color: 'white',
+                        color: '#006400',
                         font: {
                             size: 14,
                             weight: 'bold',
@@ -148,12 +148,12 @@ export const generateChart = async (fid: any) => { // async 추가
                         }
                     },
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)', // Y축 그리드 선 색상 조정
+                        color: 'rgba(0, 100, 0, 0.3)', // Y축 그리드 선 색상 조정
                         lineWidth: 1, // Y축 그리드 선 두께
                         borderDash: [5, 5], // 점선 스타일
                     },
                     ticks: {
-                        color: 'white',
+                        color: '#006400',
                         font: {
                             size: 14,
                             weight: 'bold', // Y축 값들을 bold로 설정
@@ -163,7 +163,7 @@ export const generateChart = async (fid: any) => { // async 추가
                     min: minClaimAmount, // Y축 최소값
                     max: maxClaimAmount, // Y축 최대값을 45000으로 설정하여 간격 조정
                     border: {
-                        color: 'white', // Y축 검은색 선
+                        color: '#006400', // Y축 검은색 선
                         width: 2, // Y축 선 두께
                     }
                 }

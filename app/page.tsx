@@ -13,6 +13,11 @@ const frameMetadata = getFrameMetadata({
       label: '🔄Share', 
       target: 'https://warpcast.com/~/compose?text=Check your Moxie Stats. Frame created by @hemanruru&embeds[]=https://hemanruru-moxiechart.vercel.app' 
     },
+    {
+      action: 'link', 
+      label: '@sinbiro', 
+      target: 'https://warpcast.com/hemanruru' 
+    },
   ],
   image: {
     //src: `${NEXT_PUBLIC_URL}/mainImage.png`,

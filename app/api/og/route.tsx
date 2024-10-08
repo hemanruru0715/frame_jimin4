@@ -228,11 +228,11 @@ export async function GET(req: Request) {
           //fontFamily: '"Arial", sans-serif',
           fontFamily: '"Poppins-Regular"', // 폰트 이름
           //backgroundColor: '#7158e2',
-          color: '#FFFFFF',
+          color: '#006400',
           padding: '40px',
           boxSizing: 'border-box',
           //backgroundImage: 'linear-gradient(145deg, #6d5dfc 10%, #b2a3f6 90%)',
-          backgroundImage: `url(${NEXT_PUBLIC_URL}/autumn.png)`,
+          backgroundImage: `url(${NEXT_PUBLIC_URL}/autumn_color.png)`,
         }}
       >
 
@@ -244,12 +244,12 @@ export async function GET(req: Request) {
             height="150"
             width="150"
             style={{
-              borderRadius: '0%',
+              borderRadius: '35%',
               objectFit: 'cover',
               marginRight: '20px',
             }}
           />
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', fontSize: '30px', color: 'black', marginTop: '20px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', fontSize: '30px', marginTop: '20px' }}>
             <div style={{ display: 'flex', marginRight: '20px' }}>@{profileName}</div>
             <div style={{ display: 'flex', marginRight: '40px' }}>FID:{fid}</div>
           </div>
@@ -326,18 +326,21 @@ export async function GET(req: Request) {
             <strong>{finalReplykee}</strong>
           </div>
         </div>
-        
-        {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '70px', marginBottom: '10px' }}>
-          <div style={{ display: 'flex', textAlign: 'left' }}>
+
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '30px', color: 'green' }}>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+            <strong>({finalLikeCount}/500)</strong>
+          </div>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+            <strong>({finalReplyCount}/300)</strong>
+          </div>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+            <strong>({finalRcQtCount}/150)</strong>
+          </div>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
             <strong></strong>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'right', fontSize: '70px' }}>
-            <strong></strong>
-            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'right', fontSize: '30px' }}>
-              <strong>({finalTvlBoost} FT / {finalPowerBoost} MP / {finalLiquidityBoost} LP)</strong>
-            </div>
-          </div>
-        </div> */}
+        </div>
 
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '50px', marginBottom: '10px' }}>
           <div style={{ display: 'flex', textAlign: 'left' }}>
@@ -361,7 +364,7 @@ export async function GET(req: Request) {
             justifyContent: 'space-between',
             padding: '0 20px', // Padding for left and right alignment
             fontSize: '24px', // Adjust font size as needed
-            color: 'black',
+            //color: 'black',
             fontFamily: '"Poppins-Regular"', // 폰트 이름
           }}
         >
