@@ -71,6 +71,9 @@ export async function GET(req: Request) {
   let finalReplyUsd = 'N/A';
   let finalRcQtUsd  = 'N/A';
 
+  let replykee  = 0;
+  let finalReplykee  = 'N/A';
+
   let likeKrw  = 0;
   let replyKrw = 0;
   let rcQtKrw  = 0;
@@ -125,12 +128,15 @@ export async function GET(req: Request) {
     console.warn("moxieKrwPrice=" + moxieKrwPrice);
 
     //화면 구성값 계산
-    like  = parseFloat(farScore) * 1;
-    reply = parseFloat((parseFloat(farScore) * 3).toFixed(3));
-    rcQt  = parseFloat((parseFloat(farScore) * 6).toFixed(3));
+    like  = parseFloat((parseFloat(farScore) * 0.5).toFixed(2));
+    reply = parseFloat((parseFloat(farScore) * 2).toFixed(2));
+    rcQt  = parseFloat((parseFloat(farScore) * 4).toFixed(2));
     finalLike  = like.toLocaleString();
     finalReply = reply.toLocaleString();
     finalRcQt  = rcQt.toLocaleString();
+
+     replykee = like + reply + rcQt;
+     finalReplykee = replykee.toLocaleString();
 
      console.warn("finalLike=" + finalLike);
      console.warn("finalReply=" + finalReply);
@@ -180,8 +186,8 @@ export async function GET(req: Request) {
     finalStakedTvlKrw = stakedTvlKrw.toLocaleString();
     finalUnStakedTvlKrw = unStakedTvlKrw.toLocaleString();
     
-    finalStakedTvl = (Number(stakedTvl) / 1e3).toFixed(1).toLocaleString();
-    finalUnStakedTvl = (Number(unStakedTvl) / 1e3).toFixed(1).toLocaleString();
+    finalStakedTvl = Number((Number(stakedTvl) / 1e3).toFixed(1)).toLocaleString();
+    finalUnStakedTvl = Number((Number(unStakedTvl) / 1e3).toFixed(1)).toLocaleString();
 
     /* today,weekly,lifeTime 관련 USD */
     todayAmountUsd    = parseFloat((parseFloat(todayAmount) * parseFloat(moxieUsdPrice)).toFixed(2).toLocaleString());
@@ -276,18 +282,18 @@ export async function GET(req: Request) {
           </div>
        </div>
 
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '70px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '50px' }}>
           <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
             <strong>{finalFarRank}</strong>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', fontSize: '70px' }}>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
             <strong>{finalFarScore}</strong>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', fontSize: '70px' }}>
-            <strong>{finalFarScore}</strong>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+            <strong>{finalStakedTvl}K</strong>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', fontSize: '70px' }}>
-            <strong>{finalFarScore}</strong>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'center', fontSize: '40px' }}>
+            <strong>{finalTodayAmount}</strong>
           </div>
         </div>
 
@@ -306,18 +312,18 @@ export async function GET(req: Request) {
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '70px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '50px' }}>
           <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
-            <strong>{finalFarRank}</strong>
+            <strong>{finalLike}</strong>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', fontSize: '70px' }}>
-            <strong>{finalFarScore}</strong>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+            <strong>{finalReply}</strong>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', fontSize: '70px' }}>
-            <strong>{finalFarScore}</strong>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+            <strong>{finalRcQt}</strong>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', fontSize: '70px' }}>
-            <strong>{finalFarScore}</strong>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+            <strong>{finalReplykee}</strong>
           </div>
         </div>
         

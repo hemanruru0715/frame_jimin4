@@ -280,9 +280,17 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         const referenceDate = new Date(Date.UTC(2021, 0, 1, 0, 0, 0));
         const todayDate = new Date();
         todayDate.setUTCHours(0, 0, 0, 0);
+
+        console.log("111referenceDate=" + referenceDate);
+        console.log("111todayDate=" + todayDate);
+
         const differenceInMillis = todayDate.getTime() - referenceDate.getTime();
         const differenceInSeconds = Math.floor(differenceInMillis / 1000);
-        //console.warn("castsResponse=" + JSON.stringify(castsResponse.data));
+
+        console.log("differenceInMillis=" + differenceInMillis);
+        console.log("differenceInSeconds=" + differenceInSeconds);
+
+        console.warn("castsResponse=" + JSON.stringify(castsResponse.data));
 
         // castsResponse에서 reply 메시지 필터링
         const filteredReplyMessages = castsResponse.data.messages.filter(

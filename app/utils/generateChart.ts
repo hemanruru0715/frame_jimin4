@@ -6,16 +6,18 @@ import { fetchUserDataRecentSevenDaysForChart } from '@/app/utils/supabase';
 registerFont('./public/fonts/Recipekorea.ttf', { family: 'CustomFont' });
 
 // 최근 7일의 날짜 생성 함수
+let last7DaysLabels_MMDD: string[] = [];
 const getLast7DaysLabels = (): string[] => {
     const today = new Date();
     const last7DaysLabels = [];
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 14; i++) {
         const pastDate = new Date(today);
         pastDate.setDate(today.getDate() - i);
         const year = pastDate.getFullYear();
         const month = String(pastDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
         const day = String(pastDate.getDate()).padStart(2, '0');
         last7DaysLabels.unshift(`${year}-${month}-${day}`);
+        last7DaysLabels_MMDD.unshift(`${month}-${day}`);
     }
     return last7DaysLabels;
 };
@@ -35,7 +37,7 @@ export const generateChart = async (fid: any) => { // async 추가
     }
 
     // 최근 7일의 날짜 레이블 생성
-    const labels = getLast7DaysLabels();
+    let labels = getLast7DaysLabels();
 
     // sortedUserChartData와 labels를 매칭하여 available_claim_amount 값을 채움
     const availableClaimAmounts = labels.map(label => {
@@ -46,6 +48,8 @@ export const generateChart = async (fid: any) => { // async 추가
     console.log("availableClaimAmounts=" + JSON.stringify(availableClaimAmounts));
     const minClaimAmount = Math.min(...availableClaimAmounts); // 최소값
     const maxClaimAmount = Math.max(...availableClaimAmounts); // 최대값
+
+    labels = last7DaysLabels_MMDD; //실제로 x축은 월일만 보여줌
 
     const canvas = createCanvas(600, 600); // 크기를 더 크게 설정
     const ctx: any = canvas.getContext('2d');
