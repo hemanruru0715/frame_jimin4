@@ -30,20 +30,10 @@ export async function GET(req: Request) {
   const finalFarRank = parseFloat(farRank).toLocaleString();
 
   const tvl = searchParams.get('tvl') ?? "";
-  const tvlBoost = searchParams.get('tvlBoost') ?? "";
-  const liquidityBoost = searchParams.get('liquidityBoost') ?? "";
-  const powerBoost = searchParams.get('powerBoost') ?? "";
   const availableClaimAmount = searchParams.get('availableClaimAmount') ?? "";
-  //const finalTvl = parseFloat(tvl).toLocaleString();
-  const finalTvlBoost = parseFloat(tvlBoost).toLocaleString();
-  const finalLiquidityBoost = parseFloat(liquidityBoost).toLocaleString();
-  const finalPowerBoost = parseFloat(powerBoost).toLocaleString();
-  const finalAvailableClaimAmount = parseFloat(availableClaimAmount).toLocaleString();
 
   const stakedTvl = searchParams.get('stakedTvl') ?? "";
-  //const finalStakedTvl = parseFloat(stakedTvl).toLocaleString();
   const unStakedTvl = searchParams.get('unStakedTvl') ?? "";
-  //const finalUnStakedTvl = parseFloat(unStakedTvl).toLocaleString();
 
   const todayAmount = searchParams.get('todayAmount') ?? "";
   const finalTodayAmount = parseFloat(todayAmount).toLocaleString();
@@ -67,9 +57,6 @@ export async function GET(req: Request) {
   let likeUsd  = 0;
   let replyUsd = 0;
   let rcQtUsd  = 0;
-  let finalLikeUsd  = 'N/A';
-  let finalReplyUsd = 'N/A';
-  let finalRcQtUsd  = 'N/A';
 
   let replykee  = 0;
   let finalReplykee  = 'N/A';
@@ -77,40 +64,26 @@ export async function GET(req: Request) {
   let likeKrw  = 0;
   let replyKrw = 0;
   let rcQtKrw  = 0;
-  let finalLikeKrw  = 'N/A';
-  let finalReplyKrw = 'N/A';
-  let finalRcQtKrw  = 'N/A';
 
   let tvlUsd = 0;
   let availableClaimAmountUsd = 0;
-  let finalTvl = 'N/A';
-  let finalTvlUsd = 'N/A';
-  let finalAvailableClaimAmountUsd = 'N/A';
   
   let tvlKrw = 0;
   let availableClaimAmountKrw = 0;
-  let finalTvlKrw = 'N/A';
-  let finalAvailableClaimAmountKrw = 'N/A';
   
   let finalStakedTvl = 'N/A'
   let finalUnStakedTvl = 'N/A'
 
   let stakedTvlUsd = 0;
   let unStakedTvlUsd = 0;
-  let finalStakedTvlUsd = 'N/A';
-  let finalUnStakedTvlUsd = 'N/A';
 
   let stakedTvlKrw = 0;
   let unStakedTvlKrw = 0;
-  let finalStakedTvlKrw = 'N/A';
-  let finalUnStakedTvlKrw = 'N/A';
 
 
   let todayAmountUsd    = 0;
-  let finalTodayAmountUsd    = 'N/A';
 
   let todayAmountKrw    = 0;
-  let finalTodayAmountKrw    = 'N/A';
 
   let finalReplyCount = 0;
   let finalLikeCount = 0;
@@ -146,56 +119,37 @@ export async function GET(req: Request) {
     likeUsd  = parseFloat((like * parseFloat(moxieUsdPrice)).toFixed(4)); //finalLikeUsd 시 0이 나와서 임시 likeUsd로 화면에 보여줌
     replyUsd = parseFloat((reply * parseFloat(moxieUsdPrice)).toFixed(4));
     rcQtUsd  = parseFloat((rcQt * parseFloat(moxieUsdPrice)).toFixed(4));
-    finalLikeUsd  = likeUsd.toLocaleString();
-    finalReplyUsd = replyUsd.toLocaleString();
-    finalRcQtUsd  = rcQtUsd.toLocaleString();
 
     /* like,reply,rcqt 관련 KRW */
     likeKrw  = parseFloat((like * parseFloat(moxieKrwPrice)).toFixed(0));
     replyKrw = parseFloat((reply * parseFloat(moxieKrwPrice)).toFixed(0));
     rcQtKrw  = parseFloat((rcQt * parseFloat(moxieKrwPrice)).toFixed(0));
-    finalLikeKrw = likeKrw.toLocaleString();
-    finalReplyKrw = replyKrw.toLocaleString();
-    finalRcQtKrw = rcQtKrw.toLocaleString();
 
     /* tvl 관련 USD */
     tvlUsd    = parseFloat((parseFloat(tvl) * parseFloat(moxieUsdPrice)).toFixed(2));
     availableClaimAmountUsd    = parseFloat((parseFloat(availableClaimAmount) * parseFloat(moxieUsdPrice)).toFixed(2));
-    finalTvlUsd = tvlUsd.toLocaleString();
-    finalAvailableClaimAmountUsd = availableClaimAmountUsd.toLocaleString();
 
     /* tvl 관련 KRW */
     tvlKrw    = parseFloat((parseFloat(tvl) * parseFloat(moxieKrwPrice)).toFixed(0));
     availableClaimAmountKrw    = parseFloat((parseFloat(availableClaimAmount) * parseFloat(moxieKrwPrice)).toFixed(0));
-    finalTvlKrw = tvlKrw.toLocaleString();
-    finalAvailableClaimAmountKrw = availableClaimAmountKrw.toLocaleString();
-
-    finalTvl = (Number(tvl) / 1e3).toFixed(1);
-
 
 
     /* stakedTvl, unStakedTvl 관련 USD */
     stakedTvlUsd    = parseFloat((parseFloat(stakedTvl) * parseFloat(moxieUsdPrice)).toFixed(2));
     unStakedTvlUsd    = parseFloat((parseFloat(unStakedTvl) * parseFloat(moxieUsdPrice)).toFixed(2));
-    finalStakedTvlUsd = stakedTvlUsd.toLocaleString();
-    finalUnStakedTvlUsd = unStakedTvlUsd.toLocaleString();
 
     /* stakedTvl, unStakedTvl 관련 KRW */
     stakedTvlKrw    = parseFloat((parseFloat(stakedTvl) * parseFloat(moxieKrwPrice)).toFixed(0));
     unStakedTvlKrw    = parseFloat((parseFloat(unStakedTvl) * parseFloat(moxieKrwPrice)).toFixed(0));
-    finalStakedTvlKrw = stakedTvlKrw.toLocaleString();
-    finalUnStakedTvlKrw = unStakedTvlKrw.toLocaleString();
     
     finalStakedTvl = Number((Number(stakedTvl) / 1e3).toFixed(1)).toLocaleString();
     finalUnStakedTvl = Number((Number(unStakedTvl) / 1e3).toFixed(1)).toLocaleString();
 
     /* today,weekly,lifeTime 관련 USD */
     todayAmountUsd    = parseFloat((parseFloat(todayAmount) * parseFloat(moxieUsdPrice)).toFixed(2).toLocaleString());
-    finalTodayAmountUsd = todayAmountUsd.toLocaleString();
     
     /* today,weekly,lifeTime 관련 KRW */
     todayAmountKrw    = parseFloat((parseFloat(todayAmount) * parseFloat(moxieKrwPrice)).toFixed(0).toLocaleString());
-    finalTodayAmountKrw = todayAmountKrw.toLocaleString();
 
     /* 댓글, 좋아요, 리캐 및 인용 개수 */
     finalReplyCount = parseFloat(replyCount);
@@ -239,22 +193,33 @@ export async function GET(req: Request) {
 
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '80px', marginBottom: '35px' }}>
           <div style={{ display: 'flex', textAlign: 'left' }}>
-          <img
-            src={profileImage}
-            height="150"
-            width="150"
-            style={{
-              borderRadius: '35%',
-              objectFit: 'cover',
-              marginRight: '20px',
-            }}
-          />
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', fontSize: '30px', marginTop: '20px' }}>
-            <div style={{ display: 'flex', marginRight: '20px' }}>@{profileName}</div>
-            <div style={{ display: 'flex', marginRight: '40px' }}>FID:{fid}</div>
+            <img
+              src={profileImage}
+              height="150"
+              width="150"
+              style={{
+                borderRadius: '35%',
+                objectFit: 'cover',
+                marginRight: '20px',
+              }}
+            />
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', fontSize: '30px', marginTop: '20px' }}>
+              <div style={{ display: 'flex', marginRight: '20px' }}>@{profileName}</div>
+              <div style={{ display: 'flex', marginRight: '40px' }}>FID:{fid}</div>
+            </div>
           </div>
 
+          <div style={{ position: 'absolute', top: '0px', right: '200px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <img
+              src={`${NEXT_PUBLIC_URL}/Moxie_Maxi_Typing.png`}
+              height="200"
+              width="200"  // 크기 조정
+              style={{
+                objectFit: 'contain',
+              }}
+            />
           </div>
+
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <strong></strong>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems:'flex-end', fontSize: '30px' }}>
@@ -263,6 +228,7 @@ export async function GET(req: Request) {
               <strong style={{ marginLeft: '150px' }}>{moxieKrwPrice} KRW</strong>
             </div>
           </div>
+
         </div>
 
 

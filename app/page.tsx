@@ -1,7 +1,6 @@
 import { getFrameMetadata } from '@coinbase/onchainkit/frame';
 import type { Metadata } from 'next';
 import { NEXT_PUBLIC_URL } from './config';
-import { ImageResponse } from "@vercel/og";
 
 const frameMetadata = getFrameMetadata({
   buttons: [
@@ -11,7 +10,7 @@ const frameMetadata = getFrameMetadata({
     {
       action: 'link', 
       label: '🔄Share', 
-      target: 'https://warpcast.com/~/compose?text=Check your Moxie Stats. Frame created by @hemanruru&embeds[]=https://hemanruru-moxiechart.vercel.app' 
+      target: 'https://warpcast.com/~/compose?text=Check your Moxie Stats. Frame created by @hemanruru&embeds[]=https://hemanruru-linechart.vercel.app' 
     },
     {
       action: 'link', 
@@ -29,11 +28,11 @@ const frameMetadata = getFrameMetadata({
 
 
 export const metadata: Metadata = {
-  title: 'hemanruru-moxiechart.vercel.app',
+  title: 'hemanruru-linechart.vercel.app',
   description: 'LFG',
-  metadataBase: new URL('https://hemanruru-moxiechart.vercel.app'),  // 기본 URL 설정
+  metadataBase: new URL('https://hemanruru-linechart.vercel.app'),  // 기본 URL 설정
   openGraph: {
-    title: 'hemanruru-moxiechart.vercel.app',
+    title: 'hemanruru-linechart.vercel.app',
     description: 'Check the MOXIE stats',
      images: [`${NEXT_PUBLIC_URL}/thanksgiving_day.png`],
   },
@@ -45,7 +44,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <h1>hemanruru-moxiechart.vercel.app</h1>
+      <h1>hemanruru-linechart.vercel.app</h1>
     </>
   );
 }
