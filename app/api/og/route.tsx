@@ -248,7 +248,7 @@ export async function GET(req: Request) {
           </div>
        </div>
 
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '50px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '40px' }}>
           <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
             <strong>{finalFarRank}</strong>
           </div>
@@ -258,7 +258,7 @@ export async function GET(req: Request) {
           <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
             <strong>{finalStakedTvl}K</strong>
           </div>
-          <div style={{ display: 'flex', flex: 1, justifyContent: 'center', fontSize: '40px' }}>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
             <strong>{finalTodayAmount}</strong>
           </div>
         </div>
@@ -278,7 +278,7 @@ export async function GET(req: Request) {
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '50px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '40px' }}>
           <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
             <strong>{finalLike}</strong>
           </div>
@@ -293,7 +293,7 @@ export async function GET(req: Request) {
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '30px', color: 'green' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: '30px', color: '#006400' }}>
           <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
             <strong>({finalLikeCount}/500)</strong>
           </div>
