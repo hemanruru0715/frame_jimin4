@@ -102,8 +102,8 @@ export async function GET(req: Request) {
 
     //화면 구성값 계산
     like  = parseFloat((parseFloat(farScore) * 0.5).toFixed(2));
-    reply = parseFloat((parseFloat(farScore) * 2).toFixed(2));
-    rcQt  = parseFloat((parseFloat(farScore) * 4).toFixed(2));
+    reply = parseFloat((parseFloat(farScore) * 1).toFixed(2));
+    rcQt  = parseFloat((parseFloat(farScore) * 2).toFixed(2));
     finalLike  = like.toLocaleString();
     finalReply = reply.toLocaleString();
     finalRcQt  = rcQt.toLocaleString();
@@ -298,10 +298,10 @@ export async function GET(req: Request) {
             <strong>({finalLikeCount}/500)</strong>
           </div>
           <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
-            <strong>({finalReplyCount}/300)</strong>
+            <strong>({finalReplyCount}/200)</strong>
           </div>
           <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
-            <strong>({finalRcQtCount}/150)</strong>
+            <strong>({finalRcQtCount}/100)</strong>
           </div>
           <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
             <strong></strong>
