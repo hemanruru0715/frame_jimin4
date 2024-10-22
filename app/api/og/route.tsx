@@ -45,7 +45,7 @@ export async function GET(req: Request) {
 
   const allowLike = searchParams.get('allowLike') ?? "";
   const allowReply = searchParams.get('allowReply') ?? "";
-  const allowRcQt = searchParams.get('allowRcQt') ?? "";
+  const allowRcQt = (searchParams.get('allowRcQt') ?? "").replace(/\s+/g, '');
 
   console.log("@@@allowLike=" + allowLike);
   console.log("@@@allowReply=" + allowReply);
