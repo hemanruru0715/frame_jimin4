@@ -43,8 +43,8 @@ export async function GET(req: Request) {
   const recastCount = searchParams.get('recastCount') ?? "";
   const quoteCount = searchParams.get('quoteCount') ?? "";
 
-  const allowLike = searchParams.get('allowLike') ?? "";
-  const allowReply = searchParams.get('allowReply') ?? "";
+  const allowLike = (searchParams.get('allowLike') ?? "").replace(/\s+/g, '');
+  const allowReply = (searchParams.get('allowReply') ?? "").replace(/\s+/g, '');
   const allowRcQt = (searchParams.get('allowRcQt') ?? "").replace(/\s+/g, '');
 
   console.log("@@@allowLike=" + allowLike);
