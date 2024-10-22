@@ -572,7 +572,8 @@ export async function GET(req: NextRequest) {
                                        &tvl=${frameData.tvl}&tvlBoost=${frameData.tvl_boost}&liquidityBoost=${frameData.liquidity_boost}&powerBoost=${frameData.power_boost}
                                        &stakedTvl=${frameData.staked_tvl}&unStakedTvl=${frameData.unstaked_tvl}
                                        &availableClaimAmount=${frameData.available_claim_amount}
-                                       &allowLike=${frameData.allow_like}&allowReply=${frameData.allow_reply}&allowRcQt=${frameData.allow_rcqt}
+                                       &allowLike=${frameData.allow_like}
+                                       &allowReply=${frameData.allow_reply}&allowRcQt=${frameData.allow_rcqt}
                                        &cache_burst=${Math.floor(Date.now() / 1000)}`,
         aspectRatio: '1:1',
       },
