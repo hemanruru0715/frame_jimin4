@@ -59,7 +59,7 @@ export const generateChart = async (fid: any) => { // async 추가
     });
 
     console.log("availableClaimAmounts=" + JSON.stringify(availableClaimAmounts));
-    const minClaimAmount = Math.min(...availableClaimAmounts); // 최소값
+    const minClaimAmount = Math.min(...availableClaimAmounts) * 0.8; // 최소값
     const maxClaimAmount = Math.max(...availableClaimAmounts); // 최대값
 
     let labels14 = getLast14DaysLabels_MMDD(); //실제로 x축은 월일만 보여줌
