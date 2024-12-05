@@ -77,7 +77,7 @@ export const generateChart = async (fid: any) => { // async 추가
                 {
                     //label: 'claim',
                     data: availableClaimAmounts,
-                    borderColor: '#006400', // 선 색상
+                    borderColor: '#003366', // 선 색상
                     backgroundColor: 'rgba(0, 0, 0, 0.1)', // 채워지는 영역 투명도
                     fill: true, // 영역 차트로 만듬
                     pointBackgroundColor: 'red', // 데이터 포인트 색상
@@ -100,7 +100,7 @@ export const generateChart = async (fid: any) => { // async 추가
                     display: false, // 범례 표시를 비활성화
                     position: 'top',
                     labels: {
-                        color: '#006400', // 레전드 텍스트 색상
+                        color: '#003366', // 레전드 텍스트 색상
                         font: {
                             size: 12, // 레전드 텍스트 크기
                         }
@@ -112,7 +112,7 @@ export const generateChart = async (fid: any) => { // async 추가
                     title: {
                         display: true,
                         text: 'recent 14 days',
-                        color: '#006400',
+                        color: '#003366',
                         font: {
                             size: 14,
                             weight: 'bold',
@@ -125,14 +125,14 @@ export const generateChart = async (fid: any) => { // async 추가
                         borderDash: [5, 5], // 점선 스타일
                     },
                     ticks: {
-                        color: '#006400',
+                        color: '#003366',
                         font: {
                             size: 14,
                             weight: 'bold', // Y축 값들을 bold로 설정
                         }
                     },
                     border: {
-                        color: '#006400', // X축 검은색 선
+                        color: '#003366', // X축 검은색 선
                         width: 2, // X축 선 두께
                     }
                 },
@@ -140,7 +140,7 @@ export const generateChart = async (fid: any) => { // async 추가
                     title: {
                         display: true,
                         text: 'Available Claim',
-                        color: '#006400',
+                        color: '#003366',
                         font: {
                             size: 14,
                             weight: 'bold',
@@ -153,7 +153,7 @@ export const generateChart = async (fid: any) => { // async 추가
                         borderDash: [5, 5], // 점선 스타일
                     },
                     ticks: {
-                        color: '#006400',
+                        color: '#003366',
                         font: {
                             size: 14,
                             weight: 'bold', // Y축 값들을 bold로 설정
@@ -163,7 +163,7 @@ export const generateChart = async (fid: any) => { // async 추가
                     min: minClaimAmount, // Y축 최소값
                     max: maxClaimAmount, // Y축 최대값을 45000으로 설정하여 간격 조정
                     border: {
-                        color: '#006400', // Y축 검은색 선
+                        color: '#003366', // Y축 검은색 선
                         width: 2, // Y축 선 두께
                     }
                 }
